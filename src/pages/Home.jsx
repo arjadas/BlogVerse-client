@@ -56,7 +56,7 @@ const Home = () => {
       <h1 className="page-title">Welcome to BlogVerse</h1>
       
       {/* Show message if no blogs exist */}
-      {blogs.length === 0 ? (
+      {blogs.length === 0 || blogs == null? (
         <div className="no-blogs">
           <h2>No blog posts yet!</h2>
         </div>
