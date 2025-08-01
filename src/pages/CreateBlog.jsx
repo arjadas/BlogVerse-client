@@ -126,7 +126,23 @@ const CreateBlog = () => {
           </div>
         </form>
         
-        
+        {/* Note about Writing Tips for users*/}
+        <div style={{ 
+          marginTop: '2rem', 
+          padding: '1rem', 
+          backgroundColor: '#f8f9fa', 
+          borderRadius: '4px',
+          border: '1px solid #e9ecef'
+        }}>
+          <h3 style={{ marginBottom: '1rem', color: '#495057' }}>Writing Tips:</h3>
+          <ul style={{ color: '#6c757d', lineHeight: '1.6' }}>
+            <li>Write a clear, descriptive title that captures your main idea</li>
+            <li>Break your content into paragraphs using line breaks</li>
+            <li>Share your personal experiences and insights</li>
+            <li>Keep your audience engaged with a conversational tone</li>
+            <li>Proofread your post before publishing</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
