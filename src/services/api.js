@@ -26,6 +26,17 @@ const apiService = {
       throw error;
     }
   },
+
+  // Create a new blog post
+  createBlog: async (blogData) => {
+    try {
+      const response = await api.post('/api/blogs', blogData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating blog:', error);
+      throw error;
+    }
+  },
 }
 
 export default apiService;
