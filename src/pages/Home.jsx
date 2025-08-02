@@ -61,9 +61,25 @@ const Home = () => {
           <h2>No blog posts yet!</h2>
         </div>
       ):(
-        <div className="blog-grid">
-          <h2>All Blog posts</h2>
-        </div>
+        <>
+          <h1>All Blogs</h1>
+
+          {/* Display the list of blogs */}
+          <div className="blog-grid">
+            {blogs.map(blog => (
+              <div key={blog.id} className="blog-card">
+                
+                <h2>{blog.title}</h2>
+                <p>{blog.content}</p>
+                
+              </div>
+            ))}
+          </div>
+        
+        
+        </>
+
+        
       )}
     </div>
   );
