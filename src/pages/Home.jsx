@@ -75,7 +75,7 @@ const Home = () => {
           {/* Display the list of blogs */}
           <div className="blog-grid">
             {blogs.map(blog => (
-              <div key={blog.id} className="blog-card">
+              <div key={blog._id} className="blog-card">
                 
                 <h2>{blog.title}</h2>
 
