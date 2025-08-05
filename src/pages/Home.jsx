@@ -71,6 +71,13 @@ const Home = () => {
                 
                 <h2>{blog.title}</h2>
                 <p>{blog.content}</p>
+
+                {/* Read more link */}
+                <div style={{ marginTop: '1rem' }}>
+                  <Link to={`/blog/${blog._id}`} className="btn btn-primary">
+                    Read More
+                  </Link>
+                </div>
                 
               </div>
             ))}

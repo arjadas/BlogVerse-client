@@ -37,6 +37,17 @@ const apiService = {
       throw error;
     }
   },
+
+  // Get a single blog post by ID
+  getBlogById: async (id) => {
+    try {
+      const response = await api.get(`/api/blogs/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching blog:', error);
+      throw error;
+    }
+  },
 }
 
 export default apiService;
