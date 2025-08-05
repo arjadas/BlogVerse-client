@@ -4,6 +4,8 @@ import apiService from './../services/api';
 
 const Home = () => {
 
+  const snippetLength = 50;
+
   // State to hold the list of blogs
   const [blogs, setBlogs] = useState([]);
 
@@ -33,6 +35,12 @@ const Home = () => {
   useEffect(() => {
     fetchBlogs();
   }, []);
+
+  // Function to create snippet of blogs for preview
+  const truncateContent = (content, maxLength) => {
+    if (content.length <= maxLength) return content;
+    return content.substr(0, maxLength) + '...';
+  };
 
   // Show loading spinner while fetching data
   if (loading) {
@@ -70,7 +78,11 @@ const Home = () => {
               <div key={blog.id} className="blog-card">
                 
                 <h2>{blog.title}</h2>
-                <p>{blog.content}</p>
+
+                {/* Blog content preview */}
+                <div className="blog-preview">
+                  {truncateContent(blog.content, snippetLength)}
+                </div>
 
                 {/* Read more link */}
                 <div style={{ marginTop: '1rem' }}>
