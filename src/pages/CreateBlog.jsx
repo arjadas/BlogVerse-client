@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../services/api';
 
 const CreateBlog = () => {
+  const navigate = useNavigate();
   
   // State for form data
   const [formData, setFormData] = useState({
@@ -37,14 +38,15 @@ const CreateBlog = () => {
     try {
       setLoading(true);
       setError(null);
-      
       // Create the blog post
-      await apiService.createBlog({
+      const newBlog = await apiService.createBlog({
         title: formData.title.trim(),
         content: formData.content.trim(),
         author: formData.author.trim()
       });
 
+      // Navigate to the newly created post
+      navigate(`/blog/${newBlog._id}`);
       
     } catch (err) {
       setError('Failed to create blog post. Please try again.');
