@@ -48,6 +48,17 @@ const apiService = {
       throw error;
     }
   },
+
+  // Update a blog post by ID
+  updateBlog: async (id, blogData) => {
+    try {
+      const response = await api.put(`/api/blogs/${id}`, blogData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating blog:', error);
+      throw error;
+    }
+  },
 }
 
 export default apiService;

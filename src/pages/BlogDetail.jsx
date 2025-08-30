@@ -103,7 +103,13 @@ const BlogDetail = () => {
         <Link to="/" className="btn btn-secondary">
           ← Back to Home
         </Link>
+
+        <Link to={`/edit/${blog._id}`} className="btn btn-warning" state={{ blog }}>
+          Edit Blog Post
+        </Link>
+
       </div>
+
     </div>
   );
 };
