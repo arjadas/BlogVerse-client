@@ -6,6 +6,7 @@ const BlogDetail = () => {
   // Get the blog ID from the URL parameters
   const { id } = useParams();
   const navigate = useNavigate();
+  const [deleting, setDeleting] = useState(false);
 
   // navigation handlers
   const handleBack = () => navigate('/');
@@ -47,6 +48,35 @@ const BlogDetail = () => {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  // Function to handle blog deletion
+  const handleDelete = async () => {
+    // Confirm before deleting
+    const confirmDelete = window.confirm('Are you sure you want to delete this blog post? This action cannot be undone.');
+    
+    if (!confirmDelete) return;
+
+    try {
+      setDeleting(true);
+      setError(null);
+      await apiService.deleteBlog(id);
+      // Navigate back to home page after successful deletion
+      navigate('/');
+    } catch (err) {
+      //alert('Failed to delete blog post. Please try again.');
+      console.error('Error deleting blog:', err);
+      if (err.response) {
+        console.error('Status:', err.response.status);
+        console.error('Response data:', err.response.data);
+        alert(`Failed to delete: ${err.response.status} ${err.response.data?.message || ''}`);
+      } else {
+        alert('Failed to delete blog post. Check console for details.');
+      }
+    } finally {
+      setDeleting(false);
+    }
+  };
+
 
   // Show loading while fetching
   if (loading) {
@@ -112,6 +142,10 @@ const BlogDetail = () => {
 
         <button onClick={handleEdit} className="btn btn-warning" style={{ marginLeft: '0.5rem' }}>
           Edit Blog Post
+        </button>
+
+        <button onClick={handleDelete} className="btn btn-danger" style={{ marginLeft: '0.5rem' }}>
+          {deleting ? 'Deleting...' : 'Delete Blog Post'}
         </button>
 
       </div>

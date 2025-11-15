@@ -59,6 +59,17 @@ const apiService = {
       throw error;
     }
   },
+
+  deleteBlog: async (id) => {
+    try {
+      const response = await api.delete(`/api/blogs/${id}`);
+      return response.data;
+    } catch (error) {
+      // rethrow with more info
+      console.error('api.deleteBlog error:', error.response ?? error);
+      throw error;
+    }
+  },
 }
 
 export default apiService;
