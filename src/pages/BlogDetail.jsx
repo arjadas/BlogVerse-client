@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import apiService from '../services/api';
 
 const BlogDetail = () => {
   // Get the blog ID from the URL parameters
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  // navigation handlers
+  const handleBack = () => navigate('/');
+  const handleEdit = () => navigate(`/edit/${blog._id}`, { state: { blog } });
   
   // State to store the blog post
   const [blog, setBlog] = useState(null);
@@ -100,13 +105,14 @@ const BlogDetail = () => {
 
       {/* Action buttons */}
       <div className="blog-actions">
-        <Link to="/" className="btn btn-secondary">
-          ← Back to Home
-        </Link>
 
-        <Link to={`/edit/${blog._id}`} className="btn btn-warning" state={{ blog }}>
+        <button onClick={handleBack} className="btn btn-secondary">
+          Back to Home
+        </button>
+
+        <button onClick={handleEdit} className="btn btn-warning" style={{ marginLeft: '0.5rem' }}>
           Edit Blog Post
-        </Link>
+        </button>
 
       </div>
 
