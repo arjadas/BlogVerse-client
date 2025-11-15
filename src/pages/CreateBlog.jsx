@@ -121,10 +121,15 @@ const CreateBlog = () => {
             >
               {loading ? 'Publishing...' : 'Publish Blog Post'}
             </button>
-            
-            <Link to="/" className="btn btn-secondary">
-              Cancel
-            </Link>
+
+            <button
+               type="button"
+               className="btn btn-secondary"
+               onClick={() => navigate('/')}
+               disabled={loading}
+             >
+               Cancel
+             </button>
           </div>
         </form>
         
