@@ -1,0 +1,19 @@
+package-lock.json
+node_modules/
+.env
+
+# Client dependencies
+client/node_modules/
+client/dist/
+client/build/
+client/.env
+client/.env.local
+client/package-lock.json
+
+# Server dependencies
+server/node_modules/
+server/dist/
+server/build/
+server/.env
+server/.env.local
+server/package-lock.json
