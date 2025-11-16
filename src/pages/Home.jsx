@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import apiService from './../services/api';
+
+const Home = () => {
+
+  const snippetLength = 50;
+
+  // State to hold the list of blogs
+  const [blogs, setBlogs] = useState([]);
+
+  // State to track loading status
+  const [loading, setLoading] = useState(true);
+
+  // State to handle errors
+  const [error, setError] = useState(null);
+
+  // Function to fetch all blogs
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const blogsData = await apiService.getAllBlogs();
+      setBlogs(blogsData);
+    } catch (error) {
+      setError('Failed to fetch blogs. Please try again later.');
+      console.error('Error fetching blogs:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
+  // useEffect to fetch blogs when the component mounts
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  // Function to create snippet of blogs for preview
+  const truncateContent = (content, maxLength) => {
+    if (content.length <= maxLength) return content;
+    return content.substr(0, maxLength) + '...';
+  };
+
+  // Show loading spinner while fetching data
+  if (loading) {
+    return <div className="loading">Loading blogs...</div>;
+  }
+
+  // Show error message if there's an error
+  if (error) {
+    return (
+      <div className="error">
+        <p>{error}</p>
+        <button onClick={fetchBlogs} className="btn btn-primary">
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1 className="page-title">Welcome to BlogVerse</h1>
+      
+      {/* Show message if no blogs exist */}
+      {blogs.length === 0 || blogs == null? (
+        <div className="no-blogs">
+          <h2>No blog posts yet!</h2>
+        </div>
+      ):(
+        <>
+          <h1>All Blogs</h1>
+
+          {/* Display the list of blogs */}
+          <div className="blog-grid">
+            {blogs.map(blog => (
+              <div key={blog._id} className="blog-card">
+                
+                <h2>{blog.title}</h2>
+
+                {/* Blog content preview */}
+                <div className="blog-preview">
+                  {truncateContent(blog.content, snippetLength)}
+                </div>
+
+                {/* Read more link */}
+                <div style={{ marginTop: '1rem' }}>
+                  <Link to={`/blog/${blog._id}`} className="btn btn-primary">
+                    Read More
+                  </Link>
+                </div>
+                
+              </div>
+            ))}
+          </div>
+        
+        
+        </>
+
+        
+      )}
+    </div>
+  );
+};
+
+export default Home;
